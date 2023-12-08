@@ -117,7 +117,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="/archives/">
+              <a class="nav-link" href={% url 'Archives' %}>
                 <i class="iconfont icon-archive-fill"></i>
                 <span>Archives</span>
               </a>
@@ -188,9 +188,13 @@
 </header>
 
 <main>
+    {% block content %}
+    {% endblock %}
+    {% block archives %}
+    {% endblock %}
     {% block about %}
     {% endblock %}
-    {% block content %}
+    {% block home %}
     {% endblock %}
 
       <a id="scroll-top-button" aria-label="TOP" href="#" role="button">

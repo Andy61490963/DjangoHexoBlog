@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block archives %}
+<div class="container nopadding-x-md">
+    <div id="board">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-10 m-auto">
+                    <div class="list-group">
+                        <p class="h4"> {{ post|length }} posts in Database</p>
+                        <hr>
+                        <p class="h5">2023</p>
+
+                        {% for i in post %}
+                        <a href={% url 'Content' %} class="list-group-item list-group-item-action">
+                            <time>{{ i.formatted_month }}-{{ i.formatted_day }}</time>
+                            <div class="list-group-item-title">{{ i.postname }}</div>
+                        </a>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
