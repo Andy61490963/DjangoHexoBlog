@@ -77,16 +77,25 @@
 	<script src="{% static 'js/utils.js' %}"></script>
 	<script src="{% static 'js/color-schema.js' %}"></script>
 
+    <!-- 動態控制背景圖片大小 -->
+    <style>
+        .header-inner.big {
+            height: 100vh;
+        }
+        .header-inner.small {
+            height: 60vh;
+        }
+    </style>
+
 </head>
-
-
 <body>
-
 <header>
-<div class="header-inner" style="height: 100vh;">
+    <!-- 動態控制背景圖片大小 -->
+    {% load tags %}
+<div class="header-inner {% tags %}">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/">
+    <a class="navbar-brand" href={% url 'home' %}>
       <strong>Sentimental1</strong>
     </a>
 
@@ -101,7 +110,7 @@
       <ul class="navbar-nav ml-auto text-center">
 
             <li class="nav-item">
-              <a class="nav-link" href="/">
+              <a class="nav-link" href={% url 'home' %}>
                 <i class="iconfont icon-home-fill"></i>
                 <span>Home</span>
               </a>
@@ -129,7 +138,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="/about/">
+              <a class="nav-link" href={% url 'About' %}>
                 <i class="iconfont icon-user-fill"></i>
                 <span>About</span>
               </a>
@@ -159,13 +168,18 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
             <span id="subtitle" data-typed-text="A true master always carries the heart of an apprentice."></span>
+
         </div>
+
+      </div>
+
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+
       </div>
 
         <div class="scroll-down-bar">
           <i class="iconfont icon-arrowdown"></i>
         </div>
-
     </div>
   </div>
 </div>
@@ -174,9 +188,10 @@
 </header>
 
 <main>
-                {% block content %}
-                {% endblock %}
-
+    {% block about %}
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
 
       <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
         <i class="iconfont icon-arrowup" aria-hidden="true"></i>

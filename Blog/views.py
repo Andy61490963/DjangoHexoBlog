@@ -9,7 +9,7 @@ from django.core.paginator import Paginator
 from .models import homepost
 
 def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
-    post = homepost.objects.all()  # .order_by('-name')
+    post = homepost.objects.all()
     name = "Sentimental1"
 
     #以ownerid分類、設定分幾頁
@@ -20,10 +20,6 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
 
-    #頁數賦予到字串
-    #pages = "a" * page.paginator.num_pages
-
-    # time
     now = datetime.now()
     time = now.strftime("%Y-%m-%d, %H:%M")
     return render(request,
@@ -34,5 +30,10 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
                       "month": month,
                       "time": time,
                       "page": page,
-                      #"pages": pages,
                   })
+
+
+def About(request):
+    #為每個block設定不同背景大小
+    context = {'small_background': True}
+    return render(request, 'Navigation/About.html',context)
