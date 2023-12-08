@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container nopadding-x-md">
+        <div id="board" style="margin-top: 0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-10 m-auto">
+                        {% for post in page %}
+                            <div class="row mx-auto index-card">
+                                <article class="col-12 col-md-12 mx-auto index-info">
+                                    <h2 class="index-header">
+                                        <a href="/post/PKP-OJS-docker-install.html" target="_self">
+                                            {{ post.postname }}
+                                        </a>
+                                    </h2>
+
+                                    <a class="index-excerpt index-excerpt__noimg" href="/post/PKP-OJS-docker-install.html" target="_self">
+                                        <div>
+                                            {{ post.introduction }}
+                                        </div>
+                                    </a>
+
+                                    <div class="index-btm post-metas">
+                                        <div class="post-meta mr-3">
+                                            <i class="iconfont icon-date"></i>
+                                            {{ post.post_date }}
+                                        </div>
+
+                                        <div class="post-meta">
+                                            <i class="iconfont icon-tags"></i>
+                                            {% for tag in post.tags.all %}
+                                                {{ tag.name }}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-10 m-auto pg-background">
+            <!-- 控制分頁 -->
+            <div class="pagination">
+                {% if page.has_previous %}
+                    <a class="pagination-action" href="?page=1">&laquo; First
+                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                    </a>
+                    <a class="pagination-action" href="?page={{ page.previous_page_number }}">Previous
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    </a>
+                {% endif %}
+
+                {% for i in page.paginator.page_range %}
+                    <a class="pagination-action {% if page.number == i %}active{% endif %}" href="?page={{ i }}">
+                        {{ i }}
+                    </a>
+                {% endfor %}
+
+                {% if page.has_next %}
+                    <a class="pagination-action" href="?page={{ page.next_page_number }}">Next
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+                    <a class="pagination-action" href="?page={{ page.paginator.num_pages }}">Last &raquo;
+                        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <style>
+        .pg-background {
+            background-color: #333333;
+        }
+
+        .pagination {
+            margin-top: auto;
+            bottom: 0;
+        }
+
+        .pagination a {
+            text-decoration: none;
+        }
+
+        .pagination-number {
+            padding: 0.5em 0.8em;
+            border-radius: 2px;
+            color: #3C3C3C;
+            background-color: #6D85C7;
+        }
+
+        .pagination-number:hover,
+        .pagination-current {
+            background-color: #999999;
+        }
+
+        .pagination-action {
+            margin: 0 0.1em;
+            display: inline-block;
+            padding: 0.5em 0.5em;
+            color: #CCCCCC;
+            font-size: 1.0em;
+        }
+
+        .pagination-action:hover,
+        .pagination-previous,
+        .pagination-next {
+            color: #999999;
+        }
+    </style>
+{% endblock %}
