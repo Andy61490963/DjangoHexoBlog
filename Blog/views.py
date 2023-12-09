@@ -5,6 +5,7 @@ from django.shortcuts import redirect
 from django.utils.html import format_html
 from django.core.paginator import Paginator
 
+
 #Import Database
 from .models import homepost
 from .models import archives

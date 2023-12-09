@@ -30,7 +30,7 @@ class archives(admin.ModelAdmin):
 
 @admin.register(content)
 class content(admin.ModelAdmin):
-    list_display = ('postname', 'introduction', 'writer', 'website', 'post_date',)
+    list_display = ('postname', 'introduction', 'writer', 'website', 'post_date', 'ownerid')
     filter_horizontal = ('tags',)
 
     def display_tags(self, obj):

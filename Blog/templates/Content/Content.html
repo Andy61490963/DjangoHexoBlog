@@ -8,9 +8,7 @@
 
 <div class="container-fluid nopadding-x">
   <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-
-    </div>
+    <div class="side-col d-none d-lg-block col-lg-2"></div>
     {% for post in page %}
     <div class="col-lg-8 nopadding-x-md">
       <div class="container nopadding-x-md" id="board-ctn">
@@ -30,18 +28,24 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>標題</div>
-      <div>網址</div>
+        {% for post in page %}
+      <div>{{ post.postname }}</div>
+        {% endfor %}
     </div>
     <div class="license-meta">
 
         <div class="license-meta-item">
           <div>Author</div>
-          <div>作者</div>
+            {% for post in page %}
+          <div>{{ post.ownerid }}</div>
+            {% endfor %}
         </div>
 
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>November 8, 2023</div>
+            {% for post in page %}
+          <div>{{ post.formatted_month }} {{ post.formatted_day }}, {{ post.formatted_year }}</div>
+            {% endfor %}
         </div>
 
         <div class="license-meta-item">

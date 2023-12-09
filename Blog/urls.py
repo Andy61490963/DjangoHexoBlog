@@ -7,5 +7,5 @@ urlpatterns = [
     path('', views.home, name="home"), #主頁面
     path('Navigation/Archives', views.Archives, name="Archives"), #Navigation/Archives
     path('Navigation/About', views.About, name="About"), #Navigation/About
-    path('Content', views.Content, name="Content"), #Content/Content.html
+    path('Content/', views.Content, name="Content"), #Content/Content.html
 ]
