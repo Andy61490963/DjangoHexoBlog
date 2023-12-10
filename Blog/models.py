@@ -31,11 +31,15 @@ class archives(models.Model):
     def __str__(self):
         return self.postname
 
+    def formatted_year(self):
+        return self.post_date.strftime('%y')
+
     def formatted_month(self):
-        return self.post_date.strftime('%m')  # %m 將月份格式化為01、02、...、12的形式
+        return self.post_date.strftime('%m')
 
     def formatted_day(self):
-        return self.post_date.strftime('%d')  # %d 將日期格式化為01、02、...、31的形式
+        return self.post_date.strftime('%d')
+
 
 #archives one to one
 class content(models.Model):

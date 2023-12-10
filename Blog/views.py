@@ -1,10 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from datetime import datetime
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.utils.html import format_html
 from django.core.paginator import Paginator
-
 
 #Import Database
 from .models import homepost
@@ -49,8 +48,10 @@ def About(request):
     context = {'small_background': True}
     return render(request, 'Navigation/About.html',context)
 
-def Content(request):
-    post = content.objects.all()
+
+def Content(request ,id):
+    #Content要顯示的話，必須抓取model中，archives下的content的內容id=id的部分是每篇文章的連結
+    article = get_object_or_404(archives, id=id)
     context = {'small_background': True}
 
     # 以ownerid分類、設定分幾頁
@@ -63,7 +64,7 @@ def Content(request):
 
     return render(request,
                   'Content/Content.html', {
-                      "post": post,
+                      "article": article,
                       "page": page,
                       **context,
                   })

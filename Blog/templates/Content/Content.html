@@ -9,43 +9,37 @@
 <div class="container-fluid nopadding-x">
   <div class="row nomargin-x">
     <div class="side-col d-none d-lg-block col-lg-2"></div>
-    {% for post in page %}
+
     <div class="col-lg-8 nopadding-x-md">
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            {{ post.postname }}
+            <!-- {{ article.postname }} -->
               <div class="container1">
-                {{ post.introduction|convert_markdown|safe }}
+                {{ article.content.introduction|convert_markdown|safe }}
               </div>
+              <br>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
-        {% for tag in post.tags.all %}
-        {{ tag.name }}
+        {% for tag in article.content.tags.all %}
+            {{ tag.name }}
         {% endfor %}
     </div>
-    {% endfor %}
   <div class="license-box my-3">
     <div class="license-title">
-      <div>標題</div>
-        {% for post in page %}
-      <div>{{ post.postname }}</div>
-        {% endfor %}
+      <div>Title</div>
+      <div>{{ article.postname }}</div>
     </div>
     <div class="license-meta">
 
         <div class="license-meta-item">
           <div>Author</div>
-            {% for post in page %}
-          <div>{{ post.ownerid }}</div>
-            {% endfor %}
+          <div>{{ article.content.ownerid }}</div>
         </div>
 
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-            {% for post in page %}
-          <div>{{ post.formatted_month }} {{ post.formatted_day }}, {{ post.formatted_year }}</div>
-            {% endfor %}
+          <div>{{ article.formatted_month }} {{ article.formatted_day }}, {{ article.formatted_year }}</div>
         </div>
 
         <div class="license-meta-item">
