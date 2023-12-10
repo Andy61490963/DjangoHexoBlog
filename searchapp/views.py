@@ -1,9 +1,11 @@
+from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from django.db.models import Q
 from Blog.models import content
+from django.urls import reverse
+from Blog.models import archives
 
-
-def extract_snippet(text, keyword, chars=10):
+def extract_snippet(text, keyword, chars=100):
     index = text.lower().find(keyword.lower())
     if index != -1:
         start = max(index - chars, 0)
@@ -23,6 +25,8 @@ def search(request):
         data = []
         for result in results:
             snippet = extract_snippet(result.introduction, query)
+            archives_instance = get_object_or_404(archives, content=result)
+            post_url = reverse('Content', kwargs={'id': archives_instance.id})
             print(snippet)
             data.append({
                 #要傳送到前端顯示的內容
@@ -30,6 +34,7 @@ def search(request):
                 'snippet': snippet,
                 'writer': result.writer,
                 'post_date': result.post_date,
+                'url': post_url,
             })
 
         return JsonResponse(data, safe=False)

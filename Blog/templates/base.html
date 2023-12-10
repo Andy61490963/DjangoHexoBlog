@@ -79,14 +79,16 @@
 
     <!-- 動態控制背景圖片大小 -->
     <style>
-        .header-inner.big {
+        .header-inner.default {
             height: 100vh;
         }
         .header-inner.small {
             height: 60vh;
         }
+        .highlight1 {
+            color: red;
+        }
     </style>
-	<!-- 搜尋介面美化 -->
 </head>
 <body>
 <header>
@@ -131,7 +133,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="tag/">
+              <a class="nav-link" href={% url 'Tag' %}>
                 <i class="iconfont icon-tags-fill"></i>
                 <span>Tags</span>
               </a>
@@ -323,30 +325,55 @@
 <!-- 搜尋 -->
 <script>
 document.getElementById('search-input').addEventListener('input', function(e) {
-    var query = e.target.value;  //獲取輸入的內容
+    var query = e.target.value;  // 获取输入的内容
 
-    // 仅当输入框有内容时才发起搜索
     if (query.length > 0) {
-        fetch(`/searchapp/search/?q=${encodeURIComponent(query)}`)  //發送GET請求給Django
+        fetch(`/searchapp/search/?q=${encodeURIComponent(query)}`)  // 发送GET请求给Django
             .then(response => response.json())
             .then(data => {
                 var resultsDiv = document.getElementById('results');
-                resultsDiv.innerHTML = '';  //清空結果
+                resultsDiv.innerHTML = '';  // 清空结果
 
                 data.forEach(item => {
-                    resultsDiv.innerHTML += `
+                    var a = document.createElement('a');
+                    a.classList.add('list-group-item', 'list-group-item-action', 'font-weight-bolder', 'search-list-title');
+                    a.textContent = item.postname;
+                    a.href = item.url;
+                    a.target = '_blank';
 
-                        <a class="list-group-item list-group-item-action font-weight-bolder search-list-title"> Article : ${item.postname} </a>
-                        <p class="search-list-content">Your search content: <br> ${item.snippet}</p>`;
+                    var p = document.createElement('p');
+                    p.classList.add('search-list-content');
+                    appendHighlightedText(p, item.snippet, query);  // 使用appendHighlightedText函数处理文本
+
+                    resultsDiv.appendChild(a);
+                    resultsDiv.appendChild(p);
                 });
             })
             .catch(error => {
                 console.error('Error:', error);
             });
     } else {
-        document.getElementById('results').innerHTML = '';  //清空結果
+        document.getElementById('results').innerHTML = '';  // 清空结果
     }
 });
+
+function appendHighlightedText(parentElement, text, query) {
+    // 使用非捕获组来避免包含分隔符本身
+    const regex = new RegExp(`(${query})`, 'gi');
+    const textParts = text.split(regex);
+
+    textParts.forEach(part => {
+        if (part.toLowerCase() === query.toLowerCase()) {
+            const highlightSpan = document.createElement('span');
+            highlightSpan.textContent = part;
+            highlightSpan.classList.add('highlight1');
+            parentElement.appendChild(highlightSpan);
+        } else {
+            parentElement.appendChild(document.createTextNode(part));
+        }
+    });
+}
+
 </script>
 
 

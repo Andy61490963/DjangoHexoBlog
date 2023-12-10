@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block archives %}
+
+<div class="container nopadding-x-md">
+    <div id="board">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-10 m-auto">
+                    <div class="list-group">
+                        <p class="h4"> {{ articles|length }} posts in Database</p>
+                        <hr>
+                        <p class="h5">2023</p>
+
+                        {% for article in articles %}
+                            <!-- <p>Article ID: {{ article.id }}, Title: {{ article.postname }}</p> -->
+                            <a href="{% url 'Content' id=article.id %}" class="list-group-item list-group-item-action">
+                                <time>{{ article.formatted_month }}-{{ article.formatted_day }}</time>
+                                <div class="list-group-item-title">{{ article.postname }}</div>
+                            </a>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    /* 设置标签云容器的样式 */
+.tag-cloud {
+    /* 您可以在这里添加更多样式，比如间距、对齐等 */
+}
+
+/* 设置每个标签链接的样式 */
+.tag-link {
+    display: inline-block; /* 使标签并行显示 */
+    margin-right: 10px;    /* 在标签之间添加一些间距 */
+    /* 您可以添加更多样式，比如颜色、边距、背景等 */
+}
+
+</style>
+
+{% endblock %}
