@@ -6,11 +6,12 @@
     <div id="board">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-md-10 m-auto">
+                <div class="col-12 col-md-10 m-auto tag-center">
                     {% for tag in tags %}
-                        <a href="{% url 'Taglist' tag.name %}" class="tag-link" style="font-size: {{ 12|add:tag.num_articles }}px;">
+                        <a href="{% url 'Taglist' tag.name %}" class="tag-link" style="font-size: {{ tag.font_size }}px;">
                             {{ tag.name }}
                         </a>
+
                     {% endfor %}
                 </div>
             </div>
@@ -21,7 +22,10 @@
 <style>
 
 .tag-link {
-    margin-right: 10px;    /* 在标签之间添加一些间距 */
+    margin-right: 10px;
+}
+.tag-center {
+    text-align: center;
 }
 
 </style>

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block register %}
+    <div class="container custom-container">
+        <div id="board">
+            <div class="col-12 col-md-10 m-auto">
+                <form class="register-form">
+                    <h3>Register</h3>
+
+                    {% if form.errors %}
+                        <p>There was an error with your form...</p>
+                    {% endif %}
+
+                    {% csrf_token %}
+                    {{ form.as_p }}
+
+                    <input type="submit" value="Submit"
+                           class="btn btn-primary"
+                           style="margin-top: 50px; width: 100%; background-color: #ffffff; color: #080710; padding: 15px 0; border-radius: 5px; cursor: pointer;">
+
+                    <p class="card-text">Already have an account? => <a href="{% url 'login' %}" style="color:red; text-decoration:underline;">Login here</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .custom-container {
+            max-width: 800px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .register-form {
+            background-color: rgba(255,255,255,0.13);
+            border-radius: 10px;
+            padding: 50px 35px;
+            border: 2px solid rgba(255,255,255,0.1);
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            font-family: 'Poppins', sans-serif;
+        }
+        .register-form h3 {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+        }
+        .register-form label {
+            margin-top: 10px;
+        }
+        .register-form input[type="text"],
+        .register-form input[type="password"],
+        .register-form input[type="email"] {
+            background-color: rgba(255,255,255,0.07);
+            border-radius: 3px;
+            padding: 0 10px;
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+        .card-text {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+    </style>
+{% endblock %}

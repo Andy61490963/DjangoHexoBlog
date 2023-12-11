@@ -146,6 +146,26 @@
               </a>
             </li>
 
+            <li class="nav-item">
+                {% if user.is_authenticated %}
+              <a class="nav-link" href={% url 'logout' %}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-check-fill" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                  <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                </svg>
+                <span>Logout</span>
+              </a>
+                {% else %}
+              <a class="nav-link" href={% url 'login' %}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                </svg>
+                <span>Login</span>
+              </a>
+                {% endif %}
+            </li>
+
             <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
               <i class="iconfont icon-search"></i>
@@ -171,11 +191,8 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
             <span id="subtitle" data-typed-text="A true master always carries the heart of an apprentice."></span>
-
         </div>
-
       </div>
-
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
 
       </div>
@@ -183,9 +200,13 @@
         <div class="scroll-down-bar">
           <i class="iconfont icon-arrowdown"></i>
         </div>
+
     </div>
+
   </div>
+
 </div>
+
 
 
 <!-- search function -->
@@ -215,6 +236,10 @@
 </div>
 </header>
 <main>
+    {% block register %}
+    {% endblock %}
+    {% block login %}
+    {% endblock %}
     {% block content %}
     {% endblock %}
     {% block archives %}
@@ -223,7 +248,6 @@
     {% endblock %}
     {% block home %}
     {% endblock %}
-
       <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
         <i class="iconfont icon-arrowup" aria-hidden="true"></i>
       </a>

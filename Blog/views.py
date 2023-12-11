@@ -20,7 +20,7 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
 
     #以ownerid分類、設定分幾頁
     p = homepost.objects.all().order_by('ownerid')
-    paginator = Paginator(p, 1)
+    paginator = Paginator(p, 2)
 
     #使用者從請求中獲取的頁面參數（通常從 GET 請求中獲取）來獲取特定的頁面，page會傳給home.html作為切分資料{% for post in page %}
     page_number = request.GET.get('page')
@@ -71,7 +71,8 @@ def tag(request):
     tags = Tag.objects.annotate(num_articles=Count('content'))
     for tag in tags:
         # 确保字体大小在合理范围内
-        tag.font_size = min(max(12 + tag.num_articles, 12), 30)  # 例如，字体大小限制在 12px 到 30px 之间
+        tag.font_size = min(max(10 * tag.num_articles, 10), 100)  # 例如，字体大小限制在 10px 到 100px 之间
+        #print((tag.font_size))
     return render(request,
                   'Navigation/Tag.html',  {
                       'tags': tags,

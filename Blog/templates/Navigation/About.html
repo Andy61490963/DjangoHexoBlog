@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% block about %}
-
+{% load static %}
     <div class="container nopadding-x-md">
         <div id="board">
             <div class="about-avatar">
-                <img src="https://media.discordapp.net/attachments/1145373138339758221/1146430501381488650/248271A1-4D20-4873-B06B-C05A79916E6C.jpg?width=730&amp;height=671" srcset="/img/loading.gif" lazyload class="img-fluid" alt="avatar">
+                <img src="{% static 'img/gpt.png' %}" loading="lazy" class="img-fluid" alt="avatar">
+
             </div>
             <div class="container">
                 <div class="row">
