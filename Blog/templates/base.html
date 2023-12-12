@@ -344,55 +344,63 @@
 	window.addEventListener('load', function() {
 	  NProgress.done();
 	})
+</script>
 
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
+<script>
+(function (window, document) {
+  var typing = Fluid.plugins.typing;
+  var subtitle = document.getElementById('subtitle');
+  if (!subtitle || !typing) {
+	return;
+  }
+  var text = subtitle.getAttribute('data-typed-text');
 
-        typing(text);
-    })(window, document);
+	typing(text);
 
-    Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
-      window.anchors.options = {
-        placement: CONFIG.anchorjs.placement,
-        visible  : CONFIG.anchorjs.visible
-      };
-      if (CONFIG.anchorjs.icon) {
-        window.anchors.options.icon = CONFIG.anchorjs.icon;
-      }
-      var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-      var res = [];
-      for (var item of el) {
-        res.push('.markdown-body > ' + item.trim());
-      }
-      if (CONFIG.anchorjs.placement === 'left') {
-        window.anchors.options.class = 'anchorjs-link-left';
-      }
-      window.anchors.add(res.join(', '));
+})(window, document);
+</script>
 
-      Fluid.events.registerRefreshCallback(function() {
-        if ('anchors' in window) {
-          anchors.removeAll();
-          var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-          var res = [];
-          for (var item of el) {
-            res.push('.markdown-body > ' + item.trim());
-          }
-          if (CONFIG.anchorjs.placement === 'left') {
-            anchors.options.class = 'anchorjs-link-left';
-          }
-          anchors.add(res.join(', '));
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
         }
-      });
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
     });
+  });
+</script>
 
-    Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-      Fluid.plugins.fancyBox();
-    });
+
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
 </script>
 
 <!-- 主题的启动项，将它保持在最底部 -->
