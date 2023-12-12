@@ -11,7 +11,7 @@
                         <p class="h5">2023</p>
 
                         {% for i in post %}
-                        <a href={% url 'Archives_content' id=i.id %} class="list-group-item list-group-item-action">
+                        <a href={% url 'Repository_content' id=i.id %} class="list-group-item list-group-item-action">
                             <time>{{ i.formatted_month }}-{{ i.formatted_day }}</time>
                             <div class="list-group-item-title">{{ i.postname }}</div>
                         </a>

@@ -3,8 +3,12 @@ from django.utils.safestring import mark_safe
 
 from .models import Tag
 from .models import homepost
+
 from .models import archives
-from .models import content
+from .models import archives_content
+
+from .models import repository
+from .models import repository_content
 
 
 @admin.register(Tag)
@@ -28,8 +32,8 @@ class archives(admin.ModelAdmin):
     list_display = ('postname','post_date',)
 
 
-@admin.register(content)
-class content(admin.ModelAdmin):
+@admin.register(archives_content)
+class archives_content(admin.ModelAdmin):
     list_display = ('postname', 'introduction', 'writer', 'website', 'post_date', 'ownerid')
     filter_horizontal = ('tags',)
 
@@ -37,3 +41,13 @@ class content(admin.ModelAdmin):
         return ", ".join([tag.name for tag in obj.tags.all()])
 
     display_tags.short_description = 'Tags'
+
+
+@admin.register(repository)
+class repository(admin.ModelAdmin):
+    list_display = ('postname','post_date',)
+
+
+@admin.register(repository_content)
+class repository_content(admin.ModelAdmin):
+    list_display = ('postname', 'introduction', 'writer', 'website', 'post_date', 'ownerid')

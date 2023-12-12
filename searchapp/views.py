@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from django.db.models import Q
-from Blog.models import content
+from Blog.models import archives_content
 from django.urls import reverse
 from Blog.models import archives
 
@@ -16,7 +16,7 @@ def extract_snippet(text, keyword, chars=100):
 def search(request):
     query = request.GET.get('q', '')
     if query:
-        results = content.objects.filter(
+        results = archives_content.objects.filter(
             #要搜尋的內容
             Q(postname__icontains=query) |
             Q(introduction__icontains=query) |

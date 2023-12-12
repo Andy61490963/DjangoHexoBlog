@@ -13,7 +13,7 @@
 
                         {% for article in articles %}
                             <!-- <p>Article ID: {{ article.id }}, Title: {{ article.postname }}</p> -->
-                            <a href="{% url 'Content' id=article.id %}" class="list-group-item list-group-item-action">
+                            <a href="{% url 'Archives_content' id=article.id %}" class="list-group-item list-group-item-action">
                                 <time>{{ article.formatted_month }}-{{ article.formatted_day }}</time>
                                 <div class="list-group-item-title">{{ article.postname }}</div>
                             </a>

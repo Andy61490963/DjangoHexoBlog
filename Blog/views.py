@@ -8,8 +8,13 @@ from django.db.models import Count
 
 #Import Database
 from .models import homepost
+
 from .models import archives
-from .models import content
+from .models import archives_content
+
+from .models import repository
+from .models import repository_content
+
 from .models import Tag
 
 # Gobel background control
@@ -47,12 +52,15 @@ def Archives(request):
                   })
 
 #views可以用來分成不同連結，藉由id
-def Content(request ,id):
+def Archives_content(request ,id):
     #Content要顯示的話，必須抓取model中，archives下的content的內容id=id的部分是每篇文章的連結
     article = get_object_or_404(archives, id=id)
 
+    next_article = archives.objects.filter(id__gt=id).order_by('id').first()
+    next_id = next_article.id if next_article else None
+
     # 以ownerid分類、設定分幾頁
-    p = content.objects.all().order_by('ownerid')
+    p = archives_content.objects.all().order_by('ownerid')
     paginator = Paginator(p, 1)
 
     # 使用者從請求中獲取的頁面參數（通常從 GET 請求中獲取）來獲取特定的頁面，page會傳給home.html作為切分資料{% for post in page %}
@@ -60,15 +68,43 @@ def Content(request ,id):
     page = paginator.get_page(page_number)
 
     return render(request,
-                  'Content/Content.html', {
+                  'Content/Archive_content.html', {
+                      "article": article,
+                      "page": page,
+                      "next_id": next_id,
+                      **context,
+                  })
+
+def Repository(request):
+    post = repository.objects.all()
+    #為每個block設定不同背景大小
+    return render(request,
+                  'Navigation/Repository.html',{
+                      "post": post,
+                      **context,
+                  })
+
+def Repository_content(request ,id):
+    #Content要顯示的話，必須抓取model中，archives下的content的內容id=id的部分是每篇文章的連結
+    article = get_object_or_404(repository, id=id)
+
+    # 以ownerid分類、設定分幾頁
+    p = repository_content.objects.all().order_by('ownerid')
+    paginator = Paginator(p, 1)
+
+    # 使用者從請求中獲取的頁面參數（通常從 GET 請求中獲取）來獲取特定的頁面，page會傳給home.html作為切分資料{% for post in page %}
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+
+    return render(request,
+                  'Content/Repository_content.html', {
                       "article": article,
                       "page": page,
                       **context,
                   })
 
-
 def tag(request):
-    tags = Tag.objects.annotate(num_articles=Count('content'))
+    tags = Tag.objects.annotate(num_articles=Count('archives_content'))
     for tag in tags:
         # 确保字体大小在合理范围内
         tag.font_size = min(max(10 * tag.num_articles, 10), 100)  # 例如，字体大小限制在 10px 到 100px 之间
@@ -82,7 +118,7 @@ def tag(request):
 
 def taglist(request, tag_name):
     tag = Tag.objects.get(name=tag_name)
-    content_articles = tag.content_set.all()
+    content_articles = tag.archives_content_set.all()
     archives_content = []
     for content_article in content_articles:
         if hasattr(content_article, 'archives'):
@@ -99,3 +135,4 @@ def taglist(request, tag_name):
 def About(request):
     #為每個block設定不同背景大小
     return render(request, 'Navigation/About.html',context)
+
