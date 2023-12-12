@@ -62,16 +62,22 @@
                 </div>
                 <div class="license-icon iconfont"></div>
               </div>
+
               <div class="post-prevnext my-3">
                 <article class="post-prev col-6"></article>
+                {% if next_id %}
                 <article class="post-next col-6">
-                  <a href="/post/EC2-website.html" title="Next">
+                  <a href={% url 'Repository_content' next_id %} >
                     <span class="hidden-mobile">Next</span>
                     <span class="visible-mobile">Next</span>
                     <i class="iconfont icon-arrowright"></i>
                   </a>
                 </article>
+                {% else %}
+                  <p>已經是最後一篇文章了</p>
+                {% endif %}
               </div>
+
             </article>
           </div>
         </div>

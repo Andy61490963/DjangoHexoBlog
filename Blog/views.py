@@ -88,6 +88,8 @@ def Repository_content(request ,id):
     #Content要顯示的話，必須抓取model中，archives下的content的內容id=id的部分是每篇文章的連結
     article = get_object_or_404(repository, id=id)
 
+    next_article = repository.objects.filter(id__gt=id).order_by('id').first()
+    next_id = next_article.id if next_article else None
     # 以ownerid分類、設定分幾頁
     p = repository_content.objects.all().order_by('ownerid')
     paginator = Paginator(p, 1)
@@ -100,6 +102,7 @@ def Repository_content(request ,id):
                   'Content/Repository_content.html', {
                       "article": article,
                       "page": page,
+                      "next_id": next_id,
                       **context,
                   })
 
