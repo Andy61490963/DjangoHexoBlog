@@ -3,7 +3,7 @@
     <div class="container custom-container">
         <div id="board">
             <div class="col-12 col-md-10 m-auto">
-                <form class="register-form">
+                <form class="register-form" action="" method="POST" enctype="multipart/form-data">
                     <h3>Register</h3>
 
                     {% if form.errors %}
@@ -15,7 +15,7 @@
 
                     <input type="submit" value="Submit"
                            class="btn btn-primary"
-                           style="margin-top: 50px; width: 100%; background-color: #ffffff; color: #080710; padding: 15px 0; border-radius: 5px; cursor: pointer;">
+                           style="margin-top: 50px; width: 100%; background-color: #F0F0F0; color: #080710; padding: 15px 0; border-radius: 5px; cursor: pointer;">
 
                     <p class="card-text">Already have an account? => <a href="{% url 'login' %}" style="color:red; text-decoration:underline;">Login here</a></p>
                 </form>
@@ -49,7 +49,7 @@
         .register-form input[type="text"],
         .register-form input[type="password"],
         .register-form input[type="email"] {
-            background-color: rgba(255,255,255,0.07);
+            background-color: #F0F0F0;
             border-radius: 3px;
             padding: 0 10px;
             margin-top: 8px;

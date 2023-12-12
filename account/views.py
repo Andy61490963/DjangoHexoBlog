@@ -16,11 +16,12 @@ def login_user(request):
             login(request, user)
             messages.success(request, "You were logged in successfully")
             request.session['small_background'] = True
-            return redirect('home')
+            return redirect('Archives')
         else:
-            messages.error(request, "Login failed, please try again.")
+            messages.success(request, "Please try again...")
             request.session['small_background'] = True
             return redirect('login')
+
     else:
         return render(request, 'login.html', context)
 
@@ -41,7 +42,7 @@ def register_user(request):
             login(request, user)
             messages.success(request, "Registration successful. Welcome!")
             request.session['small_background'] = True
-            return redirect('home')
+            return redirect('Archives')
         else:
             messages.error(request, "Registration failed, please try again.")
     else:

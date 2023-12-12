@@ -76,7 +76,6 @@
 	</script>
 	<script src="{% static 'js/utils.js' %}"></script>
 	<script src="{% static 'js/color-schema.js' %}"></script>
-
     <!-- 動態控制背景圖片大小 -->
     <style>
         .header-inner.default {
@@ -87,6 +86,53 @@
         }
         .highlight1 {
             color: red;
+        }
+
+    </style>
+    <!-- 登入跳出的通知的css -->
+    <style>
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .alert-dismissible {
+            animation: fadeOut 5s linear forwards;
+        }
+
+        #message-container {
+            position: fixed;
+            top: 15%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            width: 100% ;
+            max-width: 600px ; /* Maximum width */
+            min-width: 200px; /* Minimum width */
+            padding: 20px;
+            box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.001);
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.0rem; /* Adjust as needed */
+            transition: all 0.3s ease-in-out;
+        }
+
+        .close {
+            float: right;
+            font-size: 1.5rem;
+            font-weight: bold;
+            line-height: 1;
+            color: black;
+            text-shadow: 0 1px 0 white;
+            opacity: 0.5;
+        }
+
+        .close:hover {
+            opacity: 0.75;
         }
     </style>
 </head>
@@ -128,7 +174,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                <span>Categories</span>
+                <span>Repository</span>
               </a>
             </li>
 
@@ -234,8 +280,23 @@
 </div>
 
 </div>
+
 </header>
+
+<div id="message-container" class="container" style="display: none;">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" aria-label="Close" onclick="closeMessage(this)">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
 <main>
+
     {% block register %}
     {% endblock %}
     {% block login %}
@@ -283,68 +344,79 @@
 	window.addEventListener('load', function() {
 	  NProgress.done();
 	})
-</script>
 
-<script>
-(function (window, document) {
-  var typing = Fluid.plugins.typing;
-  var subtitle = document.getElementById('subtitle');
-  if (!subtitle || !typing) {
-	return;
-  }
-  var text = subtitle.getAttribute('data-typed-text');
-
-	typing(text);
-
-})(window, document);
-</script>
-
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
       }
+      var text = subtitle.getAttribute('data-typed-text');
+
+        typing(text);
+    })(window, document);
+
+    Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+      window.anchors.options = {
+        placement: CONFIG.anchorjs.placement,
+        visible  : CONFIG.anchorjs.visible
+      };
+      if (CONFIG.anchorjs.icon) {
+        window.anchors.options.icon = CONFIG.anchorjs.icon;
+      }
+      var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+      var res = [];
+      for (var item of el) {
+        res.push('.markdown-body > ' + item.trim());
+      }
+      if (CONFIG.anchorjs.placement === 'left') {
+        window.anchors.options.class = 'anchorjs-link-left';
+      }
+      window.anchors.add(res.join(', '));
+
+      Fluid.events.registerRefreshCallback(function() {
+        if ('anchors' in window) {
+          anchors.removeAll();
+          var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+          var res = [];
+          for (var item of el) {
+            res.push('.markdown-body > ' + item.trim());
+          }
+          if (CONFIG.anchorjs.placement === 'left') {
+            anchors.options.class = 'anchorjs-link-left';
+          }
+          anchors.add(res.join(', '));
+        }
+      });
     });
-  });
-</script>
 
-
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
+    Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+      Fluid.plugins.fancyBox();
+    });
 </script>
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
 <script src="{% static 'js/boot.js' %}"></script>
+
+<!-- 登入跳出的通知 -->
+<script>
+    // 在页面加载完成后，显示消息容器
+    window.addEventListener('load', function() {
+        var messageContainer = document.getElementById('message-container');
+        messageContainer.style.display = 'block';
+    });
+
+    // 在动画完成后，隐藏消息容器
+    window.addEventListener('animationend', function() {
+        var messageContainer = document.getElementById('message-container');
+        messageContainer.style.display = 'none';
+    });
+
+    function closeMessage(buttonElement) {
+        buttonElement.parentElement.style.display = 'none';
+    }
+</script>
 
 <!-- 搜尋 -->
 <script>
@@ -397,10 +469,7 @@ function appendHighlightedText(parentElement, text, query) {
         }
     });
 }
-
 </script>
-
-
 
 <noscript><div class="noscript-warning">Blog works best with JavaScript enabled</div></noscript>
 </body>
