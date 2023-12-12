@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% block archives %}
+
+{% if user.is_authenticated %}
 <div class="container nopadding-x-md">
     <div id="board">
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-10 m-auto">
                     <div class="list-group">
-                        <p class="h4"> {{ post|length }} posts in Database</p>
+                        <p class="h4"> {{ post|length }} posts in Repository</p>
                         <hr>
                         <p class="h5">2023</p>
 
@@ -25,4 +27,38 @@
     </div>
 </div>
 
+{% else %}
+
+<div class="container nopadding-x-md">
+    <div id="board">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-10 m-auto">
+                    <div class="list-group">
+                        <div class="message-container d-flex flex-column align-items-center justify-content-center">
+                            <div class="message mb-3">Sorry! You must be logged in to view this page.</div>
+                            <br>
+                            <a href="{% url 'login' %}" class="login-link btn btn-primary">Login here</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endif %}
+<style>
+    .login-link {
+    background-color: #F0F0F0;
+    border-radius: 15px;
+    color: #272727;
+    border: none;
+    }
+
+    .login-link:hover {
+    background-color: #444;
+    }
+</style>
 {% endblock %}

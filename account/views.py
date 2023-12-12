@@ -14,12 +14,12 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, "You were logged in successfully")
             request.session['small_background'] = True
+            messages.success(request, "You were logged in successfully")
             return redirect('Archives')
         else:
-            messages.success(request, "Please try again...")
             request.session['small_background'] = True
+            messages.error(request, "Please try again...")
             return redirect('login')
 
     else:

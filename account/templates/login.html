@@ -17,7 +17,7 @@
                     <label for="password">Password</label>
                     <input type="password" class="form-control" placeholder="Password" name="password" id="password" required>
 
-                    <button type="submit">Login</button>
+                    <button type="submit" class="login-link btn btn-primary">Login</button>
                     <p class="card-text">No account? => <a href="{% url 'register' %}" style="color:red; text-decoration:underline;">Register here</a></p>
                 </form>
             </div>
@@ -59,14 +59,20 @@
             margin-top: 8px;
         }
 
-        .login-form button {
+        .login-link {
             margin-top: 50px;
             width: 100%;
             background-color: #F0F0F0;
-            color: #080710;
+
             padding: 15px 0;
-            border-radius: 5px;
-            cursor: pointer;
+            background-color: #F0F0F0;
+            border-radius: 15px;
+            color: #272727;
+            border: none;
+        }
+
+        .login-link:hover {
+             background-color: 	#ADADAD;
         }
 
         .card-text {
