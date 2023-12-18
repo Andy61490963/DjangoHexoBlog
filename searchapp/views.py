@@ -25,8 +25,8 @@ def search(request):
         data = []
         for result in results:
             snippet = extract_snippet(result.introduction, query)
-            archives_instance = get_object_or_404(archives, content=result)
-            post_url = reverse('Content', kwargs={'id': archives_instance.id})
+            archives_instance = get_object_or_404(archives, archives_content=result)
+            post_url = reverse('Archives_content', kwargs={'id': archives_instance.id})
             print(snippet)
             data.append({
                 #要傳送到前端顯示的內容
