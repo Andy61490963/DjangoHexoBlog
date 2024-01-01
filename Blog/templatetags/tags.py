@@ -1,4 +1,6 @@
 from django import template
+import os
+from urllib.parse import unquote
 
 register = template.Library()
 
@@ -16,3 +18,8 @@ def tags(context):
     else:
         # 如果Views沒有引入 'small_background' 變量 --> **context，也返回 'default'
         return 'default'
+
+@register.filter
+def filename(value):
+    decoded_url = unquote(value)
+    return os.path.basename(decoded_url)

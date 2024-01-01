@@ -2,6 +2,7 @@
 {% block content %}
   {% load static %}
   {% load markdown %}
+  {% load tags %}
 
   <link rel="stylesheet" type="text/css" href="{% static 'css/pygments.css' %}">
 
@@ -18,7 +19,7 @@
                 {{ article.repository_content.introduction|convert_markdown|safe }}
               </div>
               {% if article.repository_content.image %}
-                  <img src="{{ article.repository_content.image.url }}" style="height: 10%; max-width: 10%;" />
+                  <img src="{{ article.repository_content.image.url }}" style="height: 100%; max-width: 100%;" />
                   <br/><br/>
               {% endif %}
               <br>
@@ -30,6 +31,12 @@
                 {% endfor %}
               </div>
               -->
+			  {% if article.repository_content.ppt_file %}
+                  <a href="{{ article.repository_content.ppt_file.url }}" download>
+                    {{ article.repository_content.ppt_file.url|filename }}
+                  </a>
+                  <br/><br/>
+              {% endif %}
               <div class="license-box my-3">
                 <div class="license-title">
                   <div>Title</div>
