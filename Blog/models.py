@@ -92,7 +92,7 @@ class repository_content(models.Model):
     website = models.URLField(max_length=250 ,blank=True ,null=True)
     post_date = models.DateTimeField(default=datetime.now ,blank=True)
     image = models.ImageField(null=True, blank=True, upload_to="images/")
-    ppt_file = models.FileField(upload_to='ppt/',blank=True)
+    file = models.FileField(upload_to='ppt/',blank=True)
     ownerid = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
 

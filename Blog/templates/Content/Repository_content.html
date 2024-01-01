@@ -31,9 +31,9 @@
                 {% endfor %}
               </div>
               -->
-			  {% if article.repository_content.ppt_file %}
-                  <a href="{{ article.repository_content.ppt_file.url }}" download>
-                    {{ article.repository_content.ppt_file.url|filename }}
+			  {% if article.repository_content.file %}
+                  <a href="{{ article.repository_content.file.url }}" download>
+                    {{ article.repository_content.file.url|filename }}
                   </a>
                   <br/><br/>
               {% endif %}
